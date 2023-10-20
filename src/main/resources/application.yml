@@ -2,18 +2,18 @@ spring:
   cloud:
     azure:
       eventhubs:
-        namespace: "mhneventbus"
+        namespace: ${AZURE_EVENTHUBS_NAMESPACE}
         processor:
           checkpoint-store:
-            account-name: "storaccmhneventhub"
-            container-name: "myeventhub"
+            account-name: ${AZURE_STORAGE_ACCOUNT_NAME}
+            container-name: ${AZURE_STORAGE_CONTAINER_NAME}
     stream:
       bindings:
         consume-in-0:
-          destination: "myeventhub"
-          group: "$Default"
+          destination: ${AZURE_EVENTHUB_NAME}
+          group: ${AZURE_EVENTHUB_CONSUMER_GROUP}
         supply-out-0:
-          destination: "myeventhub"
+          destination: ${AZURE_EVENTHUB_NAME}
       eventhubs:
         bindings:
           consume-in-0:
