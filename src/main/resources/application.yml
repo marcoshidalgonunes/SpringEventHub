@@ -1,0 +1,27 @@
+spring:
+  cloud:
+    azure:
+      eventhubs:
+        namespace: "mhneventbus"
+        processor:
+          checkpoint-store:
+            account-name: "storaccmhneventhub"
+            container-name: "myeventhub"
+    stream:
+      bindings:
+        consume-in-0:
+          destination: "myeventhub"
+          group: "$Default"
+        supply-out-0:
+          destination: "myeventhub"
+      eventhubs:
+        bindings:
+          consume-in-0:
+            consumer:
+              checkpoint:
+                mode: MANUAL
+      poller:
+        initial-delay: 0
+        fixed-delay: 1000
+    function:
+      definition: consume;supply;
